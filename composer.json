@@ -1,6 +1,6 @@
 {
     "name": "defstudio/filament-column-length-limiter",
-    "description": "Limit Filament columns length showing a tooltip when text too long",
+    "description": "Limit Filament columns length showing a tooltip when text exceeds",
     "keywords": [
         "defstudio",
         "laravel",

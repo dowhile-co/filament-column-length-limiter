@@ -1,13 +1,11 @@
 # About
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/defstudio/filament-column-length-limiter.svg?style=flat-square)](https://packagist.org/packages/defstudio/filament-column-length-limiter)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/defstudio/filament-column-length-limiter/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/defstudio/filament-column-length-limiter/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/defstudio/filament-column-length-limiter/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/defstudio/filament-column-length-limiter/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/defstudio/filament-column-length-limiter.svg?style=flat-square)](https://packagist.org/packages/defstudio/filament-column-length-limiter)
 
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Limit Filament columns length showing a tooltip when text exceeds
 
 ## Installation
 
@@ -17,44 +15,17 @@ You can install the package via composer:
 composer require defstudio/filament-column-length-limiter
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="filament-column-length-limiter-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="filament-column-length-limiter-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-column-length-limiter-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
 ## Usage
 
+After installation, just call `->limitWithTooltip(xx)` in one of your table columns to automatically limit it's length and showing a nice tooltip on hover with full content
+
 ```php
-$filamentColumnLengthLimiter = new DefStudio\FilamentColumnLengthLimiter();
-echo $filamentColumnLengthLimiter->echoPhrase('Hello, DefStudio!');
+
+TextColumn::make('description')
+    ->label('Post Description')
+    ->limitWithTooltip(40)
 ```
 
-## Testing
-
-```bash
-composer test
-```
 
 ## Changelog
 
