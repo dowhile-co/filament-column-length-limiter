@@ -7,6 +7,8 @@
 
 Limit Filament columns length showing a tooltip when text exceeds
 
+![Limited text](./img/limited.png) ![Tooltip on hover](./img/tooltip.png)
+
 ## Installation
 
 You can install the package via composer:
