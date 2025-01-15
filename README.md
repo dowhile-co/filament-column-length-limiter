@@ -43,7 +43,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Fabio Ivona](https://github.com/defstudio)
+- [Fabio Ivona](https://github.com/fabio-ivona)
 - [All Contributors](../../contributors)
 
 ## License
