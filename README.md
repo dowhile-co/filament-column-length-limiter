@@ -22,10 +22,17 @@ composer require defstudio/filament-column-length-limiter
 After installation, just call `->limitWithTooltip(xx)` in one of your table columns to automatically limit it's length and showing a nice tooltip on hover with full content
 
 ```php
-
 TextColumn::make('description')
     ->label('Post Description')
     ->limitWithTooltip(40)
+```
+
+if no length is set, the column will try to take all available space, cutting its length in case of overflow, still showing the tooltip only if its content is cut:
+
+```php
+TextColumn::make('description')
+    ->label('Post Description')
+    ->limitWithTooltip()
 ```
 
 
