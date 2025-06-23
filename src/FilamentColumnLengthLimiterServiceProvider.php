@@ -23,7 +23,7 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasInstallCommand(function (InstallCommand $command) {
+            ->hasInstallCommand(function(InstallCommand $command) {
                 $command
                     ->publishConfigFile()
                     ->publishMigrations()
@@ -38,22 +38,24 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+    }
 
     public function packageBooted(): void
     {
-        TextColumn::macro('limitWithTooltip', function (int | null | Closure $limit = null): TextColumn {
+        TextColumn::macro('limitWithTooltip', function(int|null|Closure $limit = null): TextColumn {
             if ($limit === null) {
                 $this
                     ->wrap()->lineClamp(1)
-                    ->extraAttributes(function ($state) {
+                    ->extraAttributes(function($state) {
                         if ($state instanceof HasLabel) {
                             $state = $state->getLabel();
                         }
 
                         return [
                             'x-data' => '{}',
-                            'x-tooltip' => "\$el.querySelector('.fi-ta-text-item-label').offsetHeight < \$el.querySelector('.fi-ta-text-item-label').scrollHeight ? {
+                            'x-tooltip.html' => "\$el.querySelector('.fi-ta-text-item-label')?.offsetHeight < \$el.querySelector('.fi-ta-text-item-label')?.scrollHeight ? {
                                 content: `$state`,
                                 theme: \$store.theme,
                              }: ''",
@@ -64,21 +66,30 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
             }
 
             /** @var TextColumn $this */
-            $this->limit(fn () => $this->evaluate($limit))
-                ->tooltip(function ($state) use ($limit) {
-                    /** @var TextColumn $this */
+            $this->limit(fn() => $this->evaluate($limit))
+                ->extraAttributes(function($state) use ($limit) {
                     $evaluatedLimit = $this->evaluate($limit);
 
                     if ($evaluatedLimit === null) {
-                        return false;
+                        return [];
                     }
 
                     if ($state instanceof HasLabel) {
                         $state = $state->getLabel();
                     }
 
-                    return strlen($state) > $this->evaluate($limit) ? $state : false;
-                });
+                    if (strlen($state) <= $evaluatedLimit) {
+                        return [];
+                    }
+
+                    return [
+                        'x-data' => '{}',
+                        'x-tooltip.html' => "{
+                                content: `$state`,
+                                theme: \$store.theme,
+                             }",
+                    ];
+                }, true);
 
             return $this;
         });
