@@ -21,8 +21,8 @@
     ],
     "require": {
         "php": "^8.1",
-        "filament/support": "^3.0",
-        "filament/tables": "^3.0",
+        "filament/support": "^4.0",
+        "filament/tables": "^4.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
     "require-dev": {
