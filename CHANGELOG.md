@@ -2,6 +2,15 @@
 
 All notable changes to `filament-column-length-limiter` will be documented in this file.
 
+## v4.0.0 - 2025-08-18
+
+### What's Changed
+
+* set the major version to match filament's
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/defstudio/filament-column-length-limiter/pull/5
+
+**Full Changelog**: https://github.com/defstudio/filament-column-length-limiter/compare/v1.1.1...v4.0.0
+
 ## v1.1.1 - 2025-06-23
 
 **Full Changelog**: https://github.com/defstudio/filament-column-length-limiter/compare/v1.1.0...v1.1.1
