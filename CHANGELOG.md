@@ -2,6 +2,18 @@
 
 All notable changes to `filament-column-length-limiter` will be documented in this file.
 
+## v4.0.2 - 2025-08-20
+
+### What's Changed
+
+* docs by @MarioGattolla in https://github.com/defstudio/filament-column-length-limiter/pull/6
+
+### New Contributors
+
+* @MarioGattolla made their first contribution in https://github.com/defstudio/filament-column-length-limiter/pull/6
+
+**Full Changelog**: https://github.com/defstudio/filament-column-length-limiter/compare/v4.0.1...v4.0.2
+
 ## v4.0.1 - 2025-08-19
 
 **Full Changelog**: https://github.com/defstudio/filament-column-length-limiter/compare/v4.0.0...v4.0.1
