@@ -52,13 +52,22 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                         }
 
                         return [
-                            'x-data' => '{}',
-                            'x-tooltip.html' => "\$el.querySelector('.fi-ta-text-item-label')?.offsetHeight < \$el.querySelector('.fi-ta-text-item-label')?.scrollHeight ? {
+                            'style' => 'padding-block: unset',
+                            'x-data' => '{
+                                show: false,
+                                init(){
+                                    this.$nextTick(() => {
+                                        this.show = this.$el.clientHeight < this.$el.scrollHeight;
+                                    })
+                                }
+                            }',
+                            'x-tooltip.html' => "show ? {
                                 content: `$state`,
                                 theme: \$store.theme,
                              }: ''",
                         ];
-                    }, true);
+                    }, true)
+                ;
 
                 return $this;
             }
