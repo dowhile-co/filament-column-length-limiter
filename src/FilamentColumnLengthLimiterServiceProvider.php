@@ -66,8 +66,7 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                                 theme: \$store.theme,
                              }: ''",
                         ];
-                    }, true)
-                ;
+                    }, true);
 
                 return $this;
             }
