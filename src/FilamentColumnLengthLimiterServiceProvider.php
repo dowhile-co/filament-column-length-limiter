@@ -43,9 +43,9 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         TextColumn::macro('limitWithTooltip', function (int | null | Closure $limit = null): TextColumn {
+
             if ($limit === null) {
-                $this
-                    ->wrap()->lineClamp(1)
+                $this->wrap()->lineClamp(1)
                     ->extraAttributes(function ($state) {
                         if ($state instanceof HasLabel) {
                             $state = $state->getLabel();
@@ -57,8 +57,17 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                                 show: false,
                                 init(){
                                     this.$nextTick(() => {
-                                        this.show = this.$el.clientHeight < this.$el.scrollHeight;
-                                    })
+                                        if(this.$el.classList.contains(`fi-ta-text-item`)){
+                                            this.show = this.$el.clientHeight < this.$el.scrollHeight;
+                                        }else{
+                                        console.log(this.$el);
+                                            const text = this.$el.querySelector(`.fi-ta-text-item`);
+
+                                            if(text){
+                                                this.show = text.clientHeight < text.scrollHeight;
+                                            }
+                                        }
+                                    });
                                 }
                             }',
                             'x-tooltip.html' => "show ? {
@@ -89,11 +98,28 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                     }
 
                     return [
-                        'x-data' => '{}',
-                        'x-tooltip.html' => "{
+                        'style' => 'padding-block: unset',
+                        'x-data' => '{
+                                show: false,
+                                init(){
+                                   this.$nextTick(() => {
+                                        if(this.$el.classList.contains(`fi-ta-text-item`)){
+                                            this.show = this.$el.clientHeight < this.$el.scrollHeight;
+                                        }else{
+                                        console.log(this.$el);
+                                            const text = this.$el.querySelector(`.fi-ta-text-item`);
+
+                                            if(text){
+                                                this.show = text.clientHeight < text.scrollHeight;
+                                            }
+                                        }
+                                    });
+                                }
+                            }',
+                        'x-tooltip.html' => "show ? {
                                 content: `$state`,
                                 theme: \$store.theme,
-                             }",
+                             }: ''",
                     ];
                 }, true);
 
