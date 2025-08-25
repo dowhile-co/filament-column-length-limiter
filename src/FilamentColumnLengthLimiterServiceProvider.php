@@ -23,7 +23,7 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package->name(static::$name)
-            ->hasInstallCommand(function (InstallCommand $command) {
+            ->hasInstallCommand(function(InstallCommand $command) {
                 $command
                     ->publishConfigFile()
                     ->publishMigrations()
@@ -38,15 +38,18 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+    }
 
     public function packageBooted(): void
     {
-        TextColumn::macro('limitWithTooltip', function (int | null | Closure $limit = null): TextColumn {
+        TextColumn::macro('limitWithTooltip', function(int|null|Closure $limit = null): TextColumn {
+
+
             if ($limit === null) {
-                $this
-                    ->wrap()->lineClamp(1)
-                    ->extraAttributes(function ($state) {
+                $this->wrap()->lineClamp(1)
+                    ->extraAttributes(function($state) {
                         if ($state instanceof HasLabel) {
                             $state = $state->getLabel();
                         }
@@ -57,8 +60,17 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                                 show: false,
                                 init(){
                                     this.$nextTick(() => {
-                                        this.show = this.$el.clientHeight < this.$el.scrollHeight;
-                                    })
+                                        if(this.$el.classList.contains(`fi-ta-text-item`)){
+                                            this.show = this.$el.clientHeight < this.$el.scrollHeight;
+                                        }else{
+                                        console.log(this.$el);
+                                            const text = this.$el.querySelector(`.fi-ta-text-item`);
+
+                                            if(text){
+                                                this.show = text.clientHeight < text.scrollHeight;
+                                            }
+                                        }
+                                    });
                                 }
                             }',
                             'x-tooltip.html' => "show ? {
@@ -72,8 +84,8 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
             }
 
             /** @var TextColumn $this */
-            $this->limit(fn () => $this->evaluate($limit))
-                ->extraAttributes(function ($state) use ($limit) {
+            $this->limit(fn() => $this->evaluate($limit))
+                ->extraAttributes(function($state) use ($limit) {
                     $evaluatedLimit = $this->evaluate($limit);
 
                     if ($evaluatedLimit === null) {
@@ -93,9 +105,18 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                         'x-data' => '{
                                 show: false,
                                 init(){
-                                    this.$nextTick(() => {
-                                        this.show = this.$el.clientHeight < this.$el.scrollHeight;
-                                    })
+                                   this.$nextTick(() => {
+                                        if(this.$el.classList.contains(`fi-ta-text-item`)){
+                                            this.show = this.$el.clientHeight < this.$el.scrollHeight;
+                                        }else{
+                                        console.log(this.$el);
+                                            const text = this.$el.querySelector(`.fi-ta-text-item`);
+
+                                            if(text){
+                                                this.show = text.clientHeight < text.scrollHeight;
+                                            }
+                                        }
+                                    });
                                 }
                             }',
                         'x-tooltip.html' => "show ? {
