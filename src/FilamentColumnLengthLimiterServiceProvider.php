@@ -89,11 +89,19 @@ class FilamentColumnLengthLimiterServiceProvider extends PackageServiceProvider
                     }
 
                     return [
-                        'x-data' => '{}',
-                        'x-tooltip.html' => "{
+                        'style' => 'padding-block: unset',
+                        'x-data' => '{
+                                show: false,
+                                init(){
+                                    this.$nextTick(() => {
+                                        this.show = this.$el.clientHeight < this.$el.scrollHeight;
+                                    })
+                                }
+                            }',
+                        'x-tooltip.html' => "show ? {
                                 content: `$state`,
                                 theme: \$store.theme,
-                             }",
+                             }: ''",
                     ];
                 }, true);
 
